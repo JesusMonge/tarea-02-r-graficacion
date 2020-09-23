@@ -116,5 +116,12 @@ geom_text(aes(label=fallecidos), vjust=-0.3, size=3.5)
 4. (10% - OPCIONAL) Genere un solo gráfico de barras que presente los cuatros tipos de casos, ya sea en barras apiladas o agrupadas.
 
 ```{r}
+library(reshape2)
+df <- ca_covid19 <- read.csv(file='https://raw.githubusercontent.com/pf0953-programaciongeoespacialr-2020/datos/master/covid19/casos/ca/2020_09_15_CSV_GENERAL.csv')
+dfm <- melt(df[,c('pais','fallecidos','recuperados','activos','positivos')],id.vars=1)
+library(ggplot2)
+ggplot(dfm,aes(x=pais,y=value))+
+  geom_bar(aes(fill=variable),stat="identity",position="dodge")+
+scale_y_log10()  
 
 ```
